@@ -1,15 +1,14 @@
 .footer__copyright {
+  padding: 67px 0 60px;
+  color: #545454;
+  font-size: 18px;
+  line-height: 1.2;
   margin: 0;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: normal;
-  line-height: 1.15;
-  letter-spacing: 0em;
-  align-self: center;
 }
 
-@media screen and (max-width: 678px) {
+@media screen and (max-width: 425px) {
   .footer__copyright {
-      padding-top: 16px;
+    padding: 48px 0 36px;
+    font-size: 14px;
   }
 }

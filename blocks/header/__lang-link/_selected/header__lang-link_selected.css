@@ -1,9 +1,0 @@
-.header__lang-link_selected {
-  text-decoration: underline;
-  cursor: default;
-  pointer-events: none;
-}
-
-.header__lang-link_selected:hover {
-  opacity: 100%;
-}

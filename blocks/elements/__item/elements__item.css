@@ -1,0 +1,23 @@
+.elements__item {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  width: calc(33.3333% - 11.333px);
+  box-sizing: border-box;
+  border-radius: 10px;
+  background-color: white;
+}
+
+@media screen and (max-width: 695px) {
+  .elements__item {
+      width: calc(50% - 11.333px);
+  }
+}
+
+@media screen and (max-width: 550px) {
+ .elements__item {
+      width: 100%;
+      height: 361px;
+      margin-top: 20px;
+  }
+}
