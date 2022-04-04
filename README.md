@@ -15,6 +15,6 @@
 
 **Посмотреть проект**
 
-* [Ссылка на проект](https://annaryabko.github.io/russian-travel/index.html)
+* [Ссылка на проект](https://annaryabko.github.io/mesto/index.html)
 
 Спасибо!
