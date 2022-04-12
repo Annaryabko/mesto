@@ -13,11 +13,11 @@
   <div class="page">
     <section class="popup">
       <div class="popup__container">
-        <img class="popup__close" src="images/close.svg" alt="Закрыть">
+        <button type="reset" class="popup__close" value="Закрыть"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__inputs">
-          <input class="popup__input popup__input-header" type="text" id="fname" name="fname" value="Жак-Ив Кусто">
-          <input class="popup__input popup__input-title" type="text" id="lname" name="lname" value="Исследователь океана">
+        <form class="popup__inputs" name="popup-edit">
+          <input class="popup__input popup__input_type_name" type="text" id="fname" name="fname" value="Жак-Ив Кусто">
+          <input class="popup__input popup__input_type_description" type="text" id="lname" name="lname" value="Исследователь океана">
           <input class="popup__button" type="submit" value="Сохранить">
         </form>
       </div>
@@ -28,11 +28,10 @@
     <section class="profile">
       <img class="profile__avatar" src="images/profile-avatar.jpg" alt="Аватар">
       <div class="profile__info">
-        <h1 class="profile__header">Жак-Ив Кусто</h1><span class="profile__edit-button"></span>
-
+          <h1 class="profile__header">Жак-Ив Кусто</h1><div class="profile__edit-wrapper"><button class="profile__edit-button" type="button" value="Отредактировать"></button></div>
         <p class="profile__title">Исследователь океана</p>
       </div>
-      <button class="profile__add-button">+</button>
+      <button class="profile__add-button" type="button" value="Добавить">+</button>
     </section>
     <section class="elements">
       <ul class="elements__items">
@@ -40,42 +39,42 @@
           <img class="elements__picture" src="images/karachaevo.jpg" alt="Карачаево">
           <div class="elements__wrapper">
             <h2 class="elements__item-name">Карачаевск</h2>
-            <button class="elements__like"></button>
+            <button class="elements__like" type="button" value="Нравится"></button>
           </div>
         </li>
         <li class="elements__item">
           <img class="elements__picture" src="images/elbrus.jpg" alt="Эльбрус">
           <div class="elements__wrapper">
             <h2 class="elements__item-name">Гора Эльбрус</h2>
-            <button class="elements__like"></button>
+            <button class="elements__like" type="button" value="Нравится"></button>
           </div>
         </li>
         <li class="elements__item">
           <img class="elements__picture" src="images/dombai.jpg" alt="Домбай">
           <div class="elements__wrapper">
             <h2 class="elements__item-name">Домбай</h2>
-            <button class="elements__like"></button>
+            <button class="elements__like" type="button" value="Нравится"></button>
           </div>
         </li>
         <li class="elements__item">
           <img class="elements__picture" src="images/elbrus.jpg" alt="Эльбрус">
           <div class="elements__wrapper">
             <h2 class="elements__item-name">Гора Эльбрус</h2>
-            <button class="elements__like"></button>
+            <button class="elements__like" type="button" value="Нравится"></button>
           </div>
         </li>
         <li class="elements__item">
           <img class="elements__picture" src="images/dombai.jpg" alt="Домбай">
           <div class="elements__wrapper">
             <h2 class="elements__item-name">Домбай</h2>
-            <button class="elements__like"></button>
+            <button class="elements__like" type="button" value="Нравится"></button>
           </div>
         </li>
         <li class="elements__item">
           <img class="elements__picture" src="images/karachaevo.jpg" alt="Карачаево-Черкессия">
           <div class="elements__wrapper">
             <h2 class="elements__item-name">Карачаево-Черкессия</h2>
-            <button class="elements__like"></button>
+            <button class="elements__like" type="button" value="Нравится"></button>
           </div>
         </li>
       </ul>
@@ -85,6 +84,6 @@
       <p class="footer__copyright">© 2022 Mesto Russia</p>
     </footer>
   </div>
-  <script src="blocks/popup/popup.js"></script>
+  <script src="scripts/scripts.js"></script>
 </body>
 </html>

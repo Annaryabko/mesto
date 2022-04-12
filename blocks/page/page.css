@@ -1,6 +1,6 @@
 .page {
   margin: 0 auto;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', Arial, sans-serif;
   color: white;
   background-color: #000000;
   -webkit-font-smoothing: antialiased;
@@ -11,13 +11,4 @@
   text-rendering: optimizeLegibility;
   box-sizing: border-box;
   position: relative;
-  overflow: hidden;
 }
-
-
-/* @media screen and (max-width: 879px) {
-  .page {
-
-    box-sizing: border-box;
-  }
-} */

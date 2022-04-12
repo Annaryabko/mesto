@@ -1,7 +1,7 @@
 .elements__like {
   background-image: url(../../../images/like.svg);
-  height: 22px;
-  width: 19px;
+  width: 22px;
+  height: 19px;
   background-size: contain;
   background-repeat: no-repeat;
   transition: opacity .2s linear;

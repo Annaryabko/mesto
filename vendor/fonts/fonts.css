@@ -1,7 +1,7 @@
 @font-face {
 	font-family: 'Inter';
 	font-style: normal;
-	font-weight: normal;
+	font-weight: 400;
 	src: local('Inter'),
 		url('./Inter/Inter-Regular.woff2') format('woff2'), 
 		url('./Inter/Inter-Regular.woff') format('woff');
@@ -10,8 +10,17 @@
 @font-face {
 	font-family: 'Inter';
 	font-style: normal;
-	font-weight: bold;
+	font-weight: 900;
 	src: local('Inter'),
 		url('./Inter/Inter-Black.woff2') format('woff2'), 
 		url('./Inter/Inter-Black.woff') format('woff');
+}
+
+@font-face {
+	font-family: 'Inter';
+	font-style: normal;
+	font-weight: 500;
+	src: local('Inter'),
+		url('./Inter/Inter-Medium.woff2') format('woff2'), 
+		url('./Inter/Inter-Medium.woff') format('woff');
 }

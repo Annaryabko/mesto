@@ -1,0 +1,12 @@
+.profile__edit-wrapper {
+  display: inline-block;
+  vertical-align: top;
+  box-sizing: border-box;
+  padding-top: 17px;
+}
+
+@media screen and (max-width: 425px) {
+  .profile__edit-wrapper {
+    padding-top: 9px;
+  }
+}
