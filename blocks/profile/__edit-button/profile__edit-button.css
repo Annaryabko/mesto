@@ -10,14 +10,11 @@
   width: 24px;
   height: 24px;
   border: 1px solid white;
-  transition: opacity .2s linear;
-  cursor: pointer;
   box-sizing: border-box;
   background-image: url(../../../images/edit.svg);
   background-size: 10px;
   background-position: center;
   background-repeat: no-repeat;
-  box-sizing: border-box;
 }
 
 .profile__edit-button:hover {
@@ -32,53 +29,3 @@
       margin-left: 10px;
   }
 }
-
-/* 
-.profile__edit-button {
-  margin: 0;
-  padding: 0;
-  line-height: 1.2;
-  transition: opacity .2s linear;
-  cursor: pointer;
-  margin-left: 18px;
-  white-space: nowrap;
-  background-color: transparent;
-  border: none;
-  display: inline;
-}
-
-.profile__edit-button:hover {
-  opacity: 0.6;
-}
-
-.profile__edit-button:before {
-  content: "\A0";
-  font-size: 0;
-}
-
-.profile__edit-button:after {
-  content: "";
-  display: inline-block;
-  width: 24px;
-  height: 24px;
-  border: 1px solid white;
-  transition: opacity .2s linear;
-  cursor: pointer;
-  box-sizing: border-box;
-  background-image: url(../../../images/edit.svg);
-  background-size: 10px;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-@media screen and (max-width: 425px) {
-  .profile__edit-button {
-    background-size: 8px;
-  }
-
-  .profile__edit-button:after {
-      height: 18px;
-      width: 18px;
-      background-size: 8px;
-  }
-} */
