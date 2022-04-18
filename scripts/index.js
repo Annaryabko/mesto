@@ -102,6 +102,9 @@ function addElement(evt) {
     popupPhoto.querySelector('.popup__description').textContent = elementsItem.querySelector('.elements__item-name').textContent;
   });
   elementsItems.prepend(elementsItem);
+  document.querySelector('.popup__input_type_title').value = "";
+  document.querySelector('.popup__input_type_link').value = "";
+
   closePopup(popupAdd);
 }
 
