@@ -104,7 +104,6 @@ function addElement(evt) {
   elementsItems.prepend(elementsItem);
   document.querySelector('.popup__input_type_title').value = "";
   document.querySelector('.popup__input_type_link').value = "";
-
   closePopup(popupAdd);
 }
 
