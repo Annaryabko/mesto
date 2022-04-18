@@ -3,9 +3,12 @@
   height: 100%;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  display: none;
+  display: flex;
   align-items: center;
-
+  z-index: 1;
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s, opacity 0.3s linear;
 }
 
 @media screen and (max-width: 425px) {

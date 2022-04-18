@@ -19,3 +19,7 @@
   background-image: url(../../../images/like-selected.svg);
   opacity: 100%;
 }
+
+.elements__like-pressed {
+  background-image: url(../../../images/like-selected.svg);
+}
