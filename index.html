@@ -23,8 +23,8 @@
         <button type="button" class="popup__close" value="Закрыть"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
         <form class="popup__inputs" name="popup-edit">
-          <input class="popup__input popup__input_type_name" type="text" id="fname" name="fname">
-          <input class="popup__input popup__input_type_description" type="text" id="lname" name="lname">
+          <input class="popup__input popup__input_type_name" type="text" id="fname" name="fname" placeholder="Имя">
+          <input class="popup__input popup__input_type_description" type="text" id="lname" name="lname" placeholder="Род занятий">
           <input class="popup__button" type="submit" value="Сохранить">
         </form>
       </div>
@@ -33,7 +33,7 @@
       <div class="popup__container">
         <button type="button" class="popup__close" value="Закрыть"></button>
         <h2 class="popup__title">Новое место</h2>
-        <form class="popup__inputs" name="popup-add">
+        <form class="popup__inputs popup__inputs-add" name="popup-add">
           <input class="popup__input popup__input_type_title" type="text" id="title" name="title" placeholder="Название">
           <input class="popup__input popup__input_type_link" type="text" id="link" name="link" placeholder="Ссылка на картинку">
           <input class="popup__button" type="submit" value="Создать">
@@ -69,7 +69,7 @@
       </div>
     </li>
   </template>
-
+  <script src="scripts/cards.js"></script>
   <script src="scripts/index.js"></script>
 </body>
 </html>

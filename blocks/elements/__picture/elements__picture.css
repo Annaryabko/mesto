@@ -4,4 +4,10 @@
   object-fit: cover;
   object-position: center;
   display: block;
+  transition: opacity .2s linear;
+  cursor: pointer;
+}
+
+.elements__picture:hover {
+  opacity: 80%;
 }
