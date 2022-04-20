@@ -72,9 +72,6 @@ formAddCard.addEventListener('submit', addElement);
 
 //открытие и закрытие формы
 function openPopup(popup) {
-  if (popup === popupEdit) {
-    insertInputsValue();
-  }
   popup.classList.add("popup__opened");
 }
 
@@ -91,7 +88,7 @@ function insertInputsValue() {
   jobInput.value = profileTitle.innerText;
 }
 
-editButton.addEventListener('click', () => openPopup(popupEdit));
+editButton.addEventListener('click', () => { openPopup(popupEdit); insertInputsValue(); });
 closeIconEdit.addEventListener('click', () => closePopup(popupEdit));
 
 //добавляем новое имя и должность в заголовок
