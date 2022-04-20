@@ -64,7 +64,7 @@ function addElement(evt) {
   const elementsItem = createElement(inputTitle, inputLink);
   cardsContainer.prepend(elementsItem);
 
-  document.querySelector('.popup__inputs-add').reset();
+  formAddCard.reset();
   closePopup(popupAdd);
 }
 
@@ -72,16 +72,14 @@ formAddCard.addEventListener('submit', addElement);
 
 //открытие и закрытие формы
 function openPopup(popup) {
+  if (popup === popupEdit) {
+    insertInputsValue();
+  }
   popup.classList.add("popup__opened");
-  // popup.style.visibility = "visible";
-  // popup.style.opacity = "1";
 }
 
 function closePopup(popup) {
   popup.classList.remove("popup__opened");
-  if (popup === popupEdit) {
-    insertInputsValue();
-  }
 }
 
 addButton.addEventListener('click', () => openPopup(popupAdd));
@@ -93,7 +91,6 @@ function insertInputsValue() {
   jobInput.value = profileTitle.innerText;
 }
 
-insertInputsValue();
 editButton.addEventListener('click', () => openPopup(popupEdit));
 closeIconEdit.addEventListener('click', () => closePopup(popupEdit));
 
