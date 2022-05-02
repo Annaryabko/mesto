@@ -1,3 +1,20 @@
+//general reset
+
+function resetForm(form) {
+    form.querySelector('.popup__button').disabled = true;
+    form.querySelector('.popup__button').classList.add('popup__button_type_inactive');
+    Array.from(form.querySelectorAll('.popup__input')).forEach((inputElement) => {
+      inputElement.classList.remove('popup__input_type_error');
+    });
+    Array.from(form.querySelectorAll('.popup__input-error')).forEach((inputElement) => {
+      inputElement.classList.remove('popup__input-error_active');
+      inputElement.innerHTML = '';
+    });
+  }
+  
+
+
+
 //поиск неверного инпута
 const hasInvalidInput = (inputList) => {
     return inputList.some((inputElement) => {
