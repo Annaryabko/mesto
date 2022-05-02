@@ -2,6 +2,7 @@ const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 
 const popup = document.querySelector('.popup');
+const popupArray = Array.from(document.querySelectorAll('.popup'));
 const popupEdit = document.querySelector('.popup_edit');
 const popupAdd = document.querySelector('.popup_add');
 const popupPhoto = document.querySelector('.popup_photo');
@@ -64,7 +65,6 @@ function addElement(evt) {
   const elementsItem = createElement(inputTitle, inputLink);
   cardsContainer.prepend(elementsItem);
 
-  formAddCard.reset();
   closePopup(popupAdd);
 }
 
@@ -79,17 +79,69 @@ function closePopup(popup) {
   popup.classList.remove("popup__opened");
 }
 
-addButton.addEventListener('click', () => openPopup(popupAdd));
-closeIconAdd.addEventListener('click', () => closePopup(popupAdd));
+//возврат к первоначальным значениям формы add
+function resetAddForm() {
+  formAddCard.reset();
+
+  popupAdd.querySelector('.popup__button').disabled = true;
+  popupAdd.querySelector('.popup__button').classList.add('popup__button_type_inactive');
+  Array.from(popupAdd.querySelectorAll('.popup__input')).forEach((inputElement) => {
+    inputElement.classList.remove('popup__input_type_error');
+  });
+  Array.from(popupAdd.querySelectorAll('.popup__input-error')).forEach((inputElement) => {
+    inputElement.classList.remove('popup__input-error_active');
+    inputElement.innerHTML = '';
+  });
+}
+
+//открытие добавить карточку
+addButton.addEventListener('click', () => {
+  resetAddForm();
+  openPopup(popupAdd);
+});
+
+//закрытие всех попапов по клику
+popupArray.forEach((form) => {
+  form.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('popup__close') || evt.target === form) {
+      closePopup(form);
+    }
+  });
+});
+
+//закрытие попапов по кнопке
+document.addEventListener('keydown', (evt) => {
+  if (evt.key === 'Escape') {
+    popupArray.forEach((form) => {
+      closePopup(form);
+    })
+  }
+});
 
 //добавляем новое имя и должность в шапку
 function insertInputsValue() {
   nameInput.value = profileHeader.innerText;
   jobInput.value = profileTitle.innerText;
 }
+//возврат к первоначальным значениям формы edit
+function resetEditForm() {
+  insertInputsValue();
 
-editButton.addEventListener('click', () => { openPopup(popupEdit); insertInputsValue(); });
-closeIconEdit.addEventListener('click', () => closePopup(popupEdit));
+  popupEdit.querySelector('.popup__button').disabled = false;
+  popupEdit.querySelector('.popup__button').classList.remove('popup__button_type_inactive');
+  Array.from(popupEdit.querySelectorAll('.popup__input')).forEach((inputElement) => {
+    inputElement.classList.remove('popup__input_type_error');
+  });
+  Array.from(popupEdit.querySelectorAll('.popup__input-error')).forEach((inputElement) => {
+    inputElement.classList.remove('popup__input-error_active');
+    inputElement.innerHTML = '';
+  });
+}
+
+editButton.addEventListener('click', () => {
+  resetEditForm();
+  openPopup(popupEdit);
+});
 
 //добавляем новое имя и должность в заголовок
 function handleProfileFormSubmit(evt) {
@@ -101,4 +153,12 @@ function handleProfileFormSubmit(evt) {
 
 formEditProfile.addEventListener('submit', handleProfileFormSubmit);
 
-closeIconPhoto.addEventListener('click', () => closePopup(popupPhoto));
+//валидация
+enableValidation({
+  formSelector: '.popup__inputs',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_type_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+});
