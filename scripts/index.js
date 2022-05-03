@@ -76,15 +76,22 @@ function handleEscClose(popupActive, evt) {
   }
 }
 
+function handleEscClose(evt) {
+  if (evt.key === "Escape") {
+    const popupActiv = document.querySelector(".popup__opened");
+    closePopup(popupActiv);
+  }
+}
+
 //открытие и закрытие формы
 function openPopup(popup) {
   popup.classList.add("popup__opened");
-  document.addEventListener('keydown', (evt) => handleEscClose(popup, evt));
+  document.addEventListener('keydown', handleEscClose);
 }
 
 function closePopup(popup) {
   popup.classList.remove("popup__opened");
-  document.removeEventListener('keydown', (evt) => handleEscClose(popup, evt));
+  document.removeEventListener('keydown', handleEscClose);
 }
 
 //открытие добавить карточку
