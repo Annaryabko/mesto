@@ -70,23 +70,21 @@ function addCard(evt) {
 formAddCard.addEventListener('submit', addCard);
 
 //закрытие по кнопке
-function handleEscClose(evt) {
+function handleEscClose(popupActive, evt) {
   if (evt.key === 'Escape') {
-    popups.forEach((form) => {
-      closePopup(form);
-    })
+    closePopup(popupActive);
   }
 }
 
 //открытие и закрытие формы
 function openPopup(popup) {
   popup.classList.add("popup__opened");
-  document.addEventListener('keydown', handleEscClose);
+  document.addEventListener('keydown', (evt) => handleEscClose(popup, evt));
 }
 
 function closePopup(popup) {
   popup.classList.remove("popup__opened");
-  document.removeEventListener('keydown', handleEscClose);
+  document.removeEventListener('keydown', (evt) => handleEscClose(popup, evt));
 }
 
 //открытие добавить карточку
