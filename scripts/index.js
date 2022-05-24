@@ -58,8 +58,6 @@ function addCard(evt) {
   closePopup(popupAdd);
 }
 
-formAddCard.addEventListener('submit', addCard);
-
 function handleEscClose(evt) {
   if (evt.key === "Escape") {
     const popupActiv = document.querySelector(".popup__opened");
@@ -86,28 +84,6 @@ function openPopupPhoto (picture, name) {
   popupPhoto.querySelector('.popup__description').textContent = name.textContent;
 }
 
-//открытие добавить карточку
-addButton.addEventListener('click', () => {
-  formAddCard.reset();
-  popupAddValidator.resetForm();
-  openPopup(popupAdd);
-});
-
-editButton.addEventListener('click', () => {
-  insertInputsValue();
-  popupEditValidator.resetForm();
-  openPopup(popupEdit);
-});
-
-//закрытие всех попапов по клику
-popups.forEach((popup) => {
-  popup.addEventListener('click', (evt) => {
-    if (evt.target.classList.contains('popup__close') || evt.target === popup) {
-      closePopup(popup);
-    }
-  });
-});
-
 //добавляем новое имя и должность в шапку
 function insertInputsValue() {
   nameInput.value = profileHeader.textContent;
@@ -122,4 +98,28 @@ function handleProfileFormSubmit(evt) {
   closePopup(popupEdit);
 }
 
+formAddCard.addEventListener('submit', addCard);
+
+//открытие добавить карточку
+addButton.addEventListener('click', () => {
+  formAddCard.reset();
+  popupAddValidator.resetForm();
+  openPopup(popupAdd);
+});
+
+editButton.addEventListener('click', () => {
+  insertInputsValue();
+  popupEditValidator.resetForm();
+  openPopup(popupEdit);
+});
+
 formEditProfile.addEventListener('submit', handleProfileFormSubmit);
+
+//закрытие всех попапов по клику
+popups.forEach((popup) => {
+  popup.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('popup__close') || evt.target === popup) {
+      closePopup(popup);
+    }
+  });
+});

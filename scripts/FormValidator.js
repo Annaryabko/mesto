@@ -3,8 +3,8 @@ export class FormValidator {
     _form;
 
     constructor(config, form) {
-        this._config= config;
-        this._form= form;
+        this._config = config;
+        this._form = form;
     }
 
     enableValidation () {
@@ -60,10 +60,10 @@ export class FormValidator {
         
         if (this._hasInvalidInput(inputList)) {
             buttonElement.classList.add(this._config.inactiveButtonClass);
-            buttonElement.disabled=true;
+            buttonElement.disabled = true;
         } else {
             buttonElement.classList.remove(this._config.inactiveButtonClass);
-            buttonElement.disabled=false;
+            buttonElement.disabled = false;
         }
     };
 

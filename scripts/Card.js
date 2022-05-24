@@ -6,10 +6,10 @@ export class Card {
     _openPopupPhoto;
 
     constructor(name, link, template, openPopupPhoto) {
-        this._name= name;
-        this._link= link;
-        this._template= template;
-        this._openPopupPhoto= openPopupPhoto;
+        this._name = name;
+        this._link = link;
+        this._template = template;
+        this._openPopupPhoto = openPopupPhoto;
     }
 
     _delClickHandler() {
