@@ -3,13 +3,13 @@ export class Card {
     _link;
     _template;
     _card;
-    _openPopupPhoto;
+    _handleCardClick;
 
-    constructor(name, link, template, openPopupPhoto) {
+    constructor(name, link, template, handleCardClick) {
         this._name = name;
         this._link = link;
         this._template = template;
-        this._openPopupPhoto = openPopupPhoto;
+        this._handleCardClick = handleCardClick;
     }
 
     _delClickHandler() {
@@ -40,9 +40,8 @@ export class Card {
         });
 
         picture.addEventListener('click', (evt) => {
-            this._openPopupPhoto(picture, name);
+            this._handleCardClick({ src: picture.src , alt: picture.alt, description: name.textContent });
         });
-
         return this._card;
     }
 }
