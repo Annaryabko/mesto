@@ -1,21 +1,12 @@
 import { Popup } from "./Popup.js";
 import { FormValidator } from "./FormValidator.js";
-
-const config = {
-    formSelector: '.popup__inputs',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_type_inactive',
-    inputErrorClass: 'popup__input_type_error',
-    errorMessageSelector: '.popup__input-error',
-    errorClass: 'popup__input-error_active'
-};
+import { validatorConfig } from "../utils/constants.js";
 
 export class PopupWithForm extends Popup {
     constructor(selector, submitHandler) {
         super(selector);
         this._submitHandler = submitHandler;
-        this._validator = new FormValidator(config, this._element);
+        this._validator = new FormValidator(validatorConfig, this._element);
 
         this._validator.enableValidation();
     }

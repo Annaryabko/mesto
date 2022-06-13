@@ -17,21 +17,24 @@ export class Card {
     }
 
     _likeClickHandler() {
-       this._card.querySelector(".elements__like").classList.toggle("elements__like-pressed");
+        this._likeElement.classList.toggle("elements__like-pressed");
     }
 
     createCard() {
         this._card = this._template.querySelector(".elements__item").cloneNode(true);
+        // this._card.name = this._name;
+        this._card.setAttribute('name', this._name);
 
         const picture = this._card.querySelector(".elements__picture");
         const name = this._card.querySelector(".elements__item-name");
+        this._likeElement = this._card.querySelector('.elements__like');
 
         name.textContent = this._name;
         picture.src = this._link;
         picture.alt = this._name;
 
 
-        this._card.querySelector('.elements__like').addEventListener('click', () => {
+        this._likeElement.addEventListener('click', () => {
            this._likeClickHandler();
         });
 

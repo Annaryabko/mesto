@@ -1,4 +1,4 @@
-import {initialElements} from '../cards.js';
+import { initialElements } from '../utils/constants.js';
 import { Card } from '../components/Card.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
@@ -11,9 +11,9 @@ import './index.css';
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 
-const photoPopup = new PopupWithImage('.popup_photo');
-const addCardPopup = new PopupWithForm('.popup_add', addCardHandler);
-const editUserPopup = new PopupWithForm('.popup_edit', userEditHandler);
+const popupPhoto = new PopupWithImage('.popup_photo');
+const popupAddCard = new PopupWithForm('.popup_add', addCardHandler);
+const popupEditProfile = new PopupWithForm('.popup_edit', userEditHandler);
 
 const elementsTemplate = document.querySelector('#elements-template').content;
 
@@ -26,11 +26,9 @@ const profileElems = {
 const cardList = new Section({
   data: initialElements,
   renderer: (item) => {
-    const card = new Card(item.name, item.link, elementsTemplate, (data) => {
-      photoPopup.open(data);
-    });
-    const elementsItem = card.createCard();
-    return elementsItem;
+      const card = new Card(item.name, item.link, elementsTemplate, (data) => popupPhoto.open(data));
+      const elementsItem = card.createCard();
+      cardList.appendItem(elementsItem);
     },
   },
   '.elements__items'
@@ -40,7 +38,11 @@ cardList.renderItems();
 
 //добавить новую карточку
 function addCardHandler(data) {
-  cardList.addItemFirst(data);
+  const card = new Card(data.name, data.link, elementsTemplate, (data) => popupPhoto.open(data));
+  const elementsItem = card.createCard();
+  
+  cardList.prependItem(elementsItem);
+  // cardList.addItemFirst(data);
 }
 
 //добавляем новое имя и должность в заголовок
@@ -50,12 +52,12 @@ function userEditHandler(data) {
 
 //открытие добавить карточку
 addButton.addEventListener('click', () => {
-  addCardPopup.open();
+  popupAddCard.open();
 });
 
 //инфо о пользователе
 const userInfo= new UserInfo(profileElems);
 
 editButton.addEventListener('click', () => {
-  editUserPopup.open(userInfo.getUserInfo());
+  popupEditProfile.open(userInfo.getUserInfo());
 });
