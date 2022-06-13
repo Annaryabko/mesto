@@ -22,7 +22,9 @@ export class PopupWithForm extends Popup {
 
     open(data) {
         super.open();
-        this._setInputValues(data);
+        if (data) {
+            this._setInputValues(data);
+        }
     }
 
     _getInputValues() {

@@ -6,7 +6,6 @@
   <meta name="description" content="Места Россия">
   <meta name="keywords" content="html, css, javascript">
   <meta name="author" content="Анна Ефимова">
-  <link rel="stylesheet" href="pages/index.css">
   <title>Места России</title>
 </head>
 <body>
@@ -52,7 +51,7 @@
       <div class="header__logo"></div>
     </header>
     <section class="profile">
-      <img class="profile__avatar" src="images/profile-avatar.jpg" alt="Аватар">
+      <img class="profile__avatar" src="<%=require('./images/profile-avatar.jpg')%>" alt="Аватар">
       <div class="profile__info">
           <h1 class="profile__header">Жак-Ив Кусто</h1><div class="profile__edit-wrapper"><button class="profile__edit-button" type="button" value="Отредактировать"></button></div>
         <p class="profile__title">Исследователь океана</p>
@@ -77,6 +76,5 @@
       </div>
     </li>
   </template>
-  <script src="scripts/index.js" type="module"></script>
 </body>
 </html>
