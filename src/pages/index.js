@@ -19,22 +19,64 @@ const elementsTemplate = document.querySelector('#elements-template').content;
 
 const profileElems = {
   nameSelector: document.querySelector('.profile__header'),
-  descriptionSelector: document.querySelector('.profile__title')
+  descriptionSelector: document.querySelector('.profile__title'),
+  avatarSelector: document.querySelector('.profile__avatar')
 }
 
-//собираем массив карточек
-const cardList = new Section({
-  data: initialElements,
-  renderer: (item) => {
-      const card = new Card(item.name, item.link, elementsTemplate, (data) => popupPhoto.open(data));
-      const elementsItem = card.createCard();
-      cardList.appendItem(elementsItem);
-    },
-  },
-  '.elements__items'
-);
+let cardList;
+fetch('https://mesto.nomoreparties.co/v1/cohort-43/cards', {
+  headers: {
+    authorization: '32883872-fb06-4f78-8961-fef1037a9b81'
+  }
+})
+  .then(res => res.json())
+  .then((result) => {
+    console.log(result);
+    //собираем массив карточек
+    cardList = new Section({
+      data: result,
+      renderer: (item) => {
+          const card = new Card(item.name, item.link, elementsTemplate, (data) => popupPhoto.open(data));
+          const elementsItem = card.createCard();
+          cardList.appendItem(elementsItem);
+        },
+      },
+      '.elements__items'
+    );
 
-cardList.renderItems();
+    cardList.renderItems();
+  });
+
+  fetch('https://nomoreparties.co/v1/cohort-43/users/me', {
+    headers: {
+      authorization: '32883872-fb06-4f78-8961-fef1037a9b81'
+    }
+  })
+    .then(res => res.json())
+    .then((result) => {
+      userInfo.setUserInfo({ 
+        name: result.name, 
+        description: result.about,
+        avatar: result.avatar
+      });
+    })
+
+
+
+
+// //собираем массив карточек
+// const cardList = new Section({
+//   data: initialElements,
+//   renderer: (item) => {
+//       const card = new Card(item.name, item.link, elementsTemplate, (data) => popupPhoto.open(data));
+//       const elementsItem = card.createCard();
+//       cardList.appendItem(elementsItem);
+//     },
+//   },
+//   '.elements__items'
+// );
+
+// cardList.renderItems();
 
 //добавить новую карточку
 function addCardHandler(data) {
@@ -42,12 +84,36 @@ function addCardHandler(data) {
   const elementsItem = card.createCard();
   
   cardList.prependItem(elementsItem);
-  // cardList.addItemFirst(data);
+
+  fetch('https://mesto.nomoreparties.co/v1/cohort-43/cards', {
+    method: 'POST',
+    headers: {
+      authorization: '32883872-fb06-4f78-8961-fef1037a9b81',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: data.name,
+      link: data.link
+    })
+  });
+
 }
 
 //добавляем новое имя и должность в заголовок
 function userEditHandler(data) {
   userInfo.setUserInfo(data);
+
+  fetch('https://mesto.nomoreparties.co/v1/cohort-43/users/me', {
+    method: 'PATCH',
+    headers: {
+      authorization: '32883872-fb06-4f78-8961-fef1037a9b81',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: data.name,
+      about: data.description
+    })
+  });
 }
 
 //открытие добавить карточку

@@ -1,0 +1,29 @@
+.profile__avatar-edit {
+  z-index: 1;
+  top: 0;
+  height: 120px;
+  width: 120px;
+  border-radius: 100%;
+  object-fit: cover;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  position: absolute;
+  background-image: url(../../../images/edit-profile.svg);
+  background-size: 26px;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: opacity .2s linear;
+  cursor: pointer;
+}
+
+.profile__avatar-edit:hover {
+  opacity: 1;
+}
+
+@media screen and (max-width: 425px) {
+  .profile__avatar-edit {
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+}

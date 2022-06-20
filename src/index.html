@@ -32,6 +32,26 @@
         </form>
       </div>
     </section>
+    <section class="popup popup_confirm">
+      <div class="popup__container">
+        <button type="button" class="popup__close" value="Закрыть"></button>
+        <h2 class="popup__title">Вы уверены?</h2>
+        <form class="popup__inputs" name="popup-close" novalidate>
+          <input class="popup__button" type="submit" value="Да">
+        </form>
+      </div>
+    </section>
+    <section class="popup popup_avatar">
+      <div class="popup__container">
+        <button type="button" class="popup__close" value="Закрыть"></button>
+        <h2 class="popup__title">Обновить аватар?</h2>
+        <form class="popup__inputs" name="popup-close" novalidate>
+          <input class="popup__input popup__input_type_link" type="url" id="link-input" name="link" placeholder="Ссылка на картинку" required>
+          <span class="popup__input-error link-input-error"></span>
+          <input class="popup__button" type="submit" value="Сохранить">
+        </form>
+      </div>
+    </section>
     <section class="popup popup_add">
       <div class="popup__container">
         <button type="button" class="popup__close" value="Закрыть"></button>
@@ -51,7 +71,10 @@
       <div class="header__logo"></div>
     </header>
     <section class="profile">
-      <img class="profile__avatar" src="<%=require('./images/profile-avatar.jpg')%>" alt="Аватар">
+      <div class="profile__avatar-wrapper">
+        <img class="profile__avatar" src="<%=require('./images/profile-avatar.jpg')%>" alt="Аватар">
+        <div class="profile__avatar-edit"></div>
+      </div>
       <div class="profile__info">
           <h1 class="profile__header">Жак-Ив Кусто</h1><div class="profile__edit-wrapper"><button class="profile__edit-button" type="button" value="Отредактировать"></button></div>
         <p class="profile__title">Исследователь океана</p>
@@ -72,7 +95,10 @@
       <button class="elements__delete" type="button" value="Удалить"></button>
       <div class="elements__wrapper">
         <h2 class="elements__item-name"></h2>
-        <button class="elements__like" type="button" value="Нравится"></button>
+        <div class="elements__like-wrapper">
+          <button class="elements__like" type="button" value="Нравится"></button>
+          <p class="elements__like-counter">0</p>
+        </div>
       </div>
     </li>
   </template>
