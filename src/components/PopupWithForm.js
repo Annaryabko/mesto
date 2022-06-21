@@ -27,10 +27,13 @@ export class PopupWithForm extends Popup {
     }
 
     _setInputValues(data) {
+        console.log(data);
         Object.keys(data).forEach((key) => {
             const value = data[key];
-
-            this._element.querySelector(`.popup__input[name="${key}"]`).value = value;
+            const input = this._element.querySelector(`.popup__input[name="${key}"]`);
+            if(input) {
+                input.value = value;
+            }
         });
     }
 
