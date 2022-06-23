@@ -14,7 +14,13 @@ export default class UserInfo {
     return result;
   }
 
-  setUserInfo({ name, about, avatar }) {
+  getId() {
+    return this._id;
+  }
+
+  setUserInfo({ name, about, avatar, _id }) {
+    this._id = _id;
+    
     if(name) {
       this._nameSelector.textContent = name;
     }

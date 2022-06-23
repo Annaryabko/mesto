@@ -4,6 +4,19 @@ export class Popup {
         this._escHandler = (evt) => this._handleEscClose(evt);
         this.setEventListeners();
     }
+
+    renderLoading(isLoading) {
+        const button = this._element.querySelector('.popup__button');
+
+        if(!button.getAttribute('data-default-value')) {
+            button.setAttribute('data-default-value', button.getAttribute('value'));
+        }
+        if (isLoading) {
+            button.setAttribute('value', 'Сохранение...');
+        } else {
+            button.setAttribute('value', button.getAttribute('data-default-value'));
+        }
+    }
     
     open() {
         this._element.classList.add("popup__opened");

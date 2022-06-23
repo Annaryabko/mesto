@@ -1,32 +1,45 @@
 export class Card {
     _name;
     _link;
+    _likeCount;
+    _isLiked;
+    _isDeletable;
     _template;
     _card;
     _handleCardClick;
+    _handleDeleteClick;
+    _handleLikeClick;
 
-    constructor(name, link, template, handleCardClick, handleDeleteClick) {
+    constructor(name, link, likeCount, isLiked, isDeletable, template, handleCardClick, handleDeleteClick, handleLikeClick) {
         this._name = name;
         this._link = link;
+        this._likeCount = likeCount;
+        this._isLiked = isLiked;
+        this._isDeletable = isDeletable;
         this._template = template;
         this._handleCardClick = handleCardClick;
         this._handleDeleteClick = handleDeleteClick;
+        this._handleLikeClick = handleLikeClick;
     }
 
     remove() {
         this._card.remove();
     }
 
-    _likeClickHandler() {
-        this._likeElement.classList.toggle("elements__like-pressed");
+    _updateLikes() {
+        if(this._isLiked) {
+            this._likeElement.classList.remove("elements__like-pressed");
+            this._likeCount -= 1;
+            this._isLiked = false;
+        } else {
+            this._likeElement.classList.add("elements__like-pressed");
+            this._likeCount += 1;
+            this._isLiked = true;
+        }
+        this._likeCounter.innerText = this._likeCount;
     }
-
-    addDelete() {
-        this._card.querySelector('.elements__delete').style.display= 'block';
-        return this._card;
-    }
-
-    createCard(deletable = true) {
+    
+    createCard() {
         this._card = this._template.querySelector(".elements__item").cloneNode(true);
         // this._card.name = this._name;
         this._card.setAttribute('name', this._name);
@@ -34,9 +47,16 @@ export class Card {
         const picture = this._card.querySelector(".elements__picture");
         const name = this._card.querySelector(".elements__item-name");
         this._likeElement = this._card.querySelector('.elements__like');
+        this._likeCounter = this._card.querySelector('.elements__like-counter');
         this._deleteElement = this._card.querySelector('.elements__delete');
 
-        if (!deletable) {
+        this._likeCounter.innerText = this._likeCount;
+
+        if (this._isLiked) {
+            this._likeElement.classList.add("elements__like-pressed");
+        }
+
+        if (!this._isDeletable) {
             this._deleteElement.style.display = 'none';
         }
 
@@ -46,12 +66,12 @@ export class Card {
 
 
         this._likeElement.addEventListener('click', () => {
-           this._likeClickHandler();
+           this._handleLikeClick(this._isLiked);
+           this._updateLikes();
         });
 
         this._deleteElement.addEventListener('click', (evt) => {
             this._handleDeleteClick();
-
         });
 
         picture.addEventListener('click', (evt) => {
