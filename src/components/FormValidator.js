@@ -2,9 +2,13 @@ export class FormValidator {
     _config;
     _form;
 
-    constructor(config, form) {
+    constructor(config, formSelector) {
         this._config = config;
-        this._form = form;
+        this._form = document.querySelector(formSelector);
+        this._submitButton = this._form.querySelector(this._config.submitButtonSelector);
+        this._inputList = Array.from(this._form.querySelectorAll(this._config.inputSelector));
+        this._errorList = Array.from(this._form.querySelectorAll(this._config.errorMessageSelector))
+
     }
 
     enableValidation () {
@@ -16,9 +20,8 @@ export class FormValidator {
     };
 
     _setEventListeners () {
-        const inputList = Array.from(this._form.querySelectorAll(this._config.inputSelector));
 
-        inputList.forEach((inputElement) => {
+        this._inputList.forEach((inputElement) => {
             inputElement.addEventListener('input', () => {
                 this._checkInputValidity(inputElement);
                 this._toggleButtonState();
@@ -56,15 +59,13 @@ export class FormValidator {
 
     //состояние кнопки
     _toggleButtonState () {
-        const buttonElement = this._form.querySelector(this._config.submitButtonSelector);
-        const inputList = Array.from(this._form.querySelectorAll(this._config.inputSelector));
         
-        if (this._hasInvalidInput(inputList)) {
-            buttonElement.classList.add(this._config.inactiveButtonClass);
-            buttonElement.disabled = true;
+        if (this._hasInvalidInput(this._inputList)) {
+            this._submitButton.classList.add(this._config.inactiveButtonClass);
+            this._submitButton.disabled = true;
         } else {
-            buttonElement.classList.remove(this._config.inactiveButtonClass);
-            buttonElement.disabled = false;
+            this._submitButton.classList.remove(this._config.inactiveButtonClass);
+            this._submitButton.disabled = false;
         }
     };
 
@@ -77,14 +78,12 @@ export class FormValidator {
 
     //general reset
     resetForm() {
-        const button = this._form.querySelector(this._config.submitButtonSelector);
-
-        button.disabled = true;
-        button.classList.add(this._config.inactiveButtonClass);
-        Array.from(this._form.querySelectorAll(this._config.inputSelector)).forEach((inputElement) => {
+        this._submitButton.disabled = true;
+        this._submitButton.classList.add(this._config.inactiveButtonClass);
+        this._inputList.forEach((inputElement) => {
             inputElement.classList.remove(this._config.inputErrorClass);
         });
-        Array.from(this._form.querySelectorAll(this._config.errorMessageSelector)).forEach((inputElement) => {
+        this._errorList.forEach((inputElement) => {
             inputElement.classList.remove(this._config.errorClass);
             inputElement.innerHTML = '';
         });

@@ -2,19 +2,19 @@ export class Popup {
     constructor(selector) {
         this._element = document.querySelector(selector);
         this._escHandler = (evt) => this._handleEscClose(evt);
-        this.setEventListeners();
+        this._buttonElement = this._element.querySelector('.popup__button');
+        // this.setEventListeners();
     }
 
     renderLoading(isLoading) {
-        const button = this._element.querySelector('.popup__button');
 
-        if(!button.getAttribute('data-default-value')) {
-            button.setAttribute('data-default-value', button.getAttribute('value'));
+        if(!this._buttonElement.getAttribute('data-default-value')) {
+            this._buttonElement.setAttribute('data-default-value', this._buttonElement.getAttribute('value'));
         }
         if (isLoading) {
-            button.setAttribute('value', 'Сохранение...');
+            this._buttonElement.setAttribute('value', 'Сохранение...');
         } else {
-            button.setAttribute('value', button.getAttribute('data-default-value'));
+            this._buttonElement.setAttribute('value', this._buttonElement.getAttribute('data-default-value'));
         }
     }
     

@@ -10,33 +10,33 @@ export class Card {
     _handleDeleteClick;
     _handleLikeClick;
 
-    constructor(name, link, likeCount, isLiked, isDeletable, template, handleCardClick, handleDeleteClick, handleLikeClick) {
+    constructor(name, link, isDeletable, template, handleCardClick, handleDeleteClick, handleLikeClick) {
         this._name = name;
         this._link = link;
-        this._likeCount = likeCount;
-        this._isLiked = isLiked;
         this._isDeletable = isDeletable;
         this._template = template;
         this._handleCardClick = handleCardClick;
         this._handleDeleteClick = handleDeleteClick;
         this._handleLikeClick = handleLikeClick;
+        this._likeCount = 0;
+        this._isLiked = false;
     }
 
     remove() {
         this._card.remove();
     }
 
-    _updateLikes() {
-        if(this._isLiked) {
-            this._likeElement.classList.remove("elements__like-pressed");
-            this._likeCount -= 1;
-            this._isLiked = false;
-        } else {
+    updateLikes(isLiked, likeCount) {
+        this._isLiked = isLiked;
+        this._likeCount = likeCount;
+
+        if (isLiked) {
             this._likeElement.classList.add("elements__like-pressed");
-            this._likeCount += 1;
-            this._isLiked = true;
+        } else {
+            this._likeElement.classList.remove("elements__like-pressed");
         }
-        this._likeCounter.innerText = this._likeCount;
+        
+        this._likeCounter.innerText = likeCount;
     }
     
     createCard() {
@@ -50,12 +50,6 @@ export class Card {
         this._likeCounter = this._card.querySelector('.elements__like-counter');
         this._deleteElement = this._card.querySelector('.elements__delete');
 
-        this._likeCounter.innerText = this._likeCount;
-
-        if (this._isLiked) {
-            this._likeElement.classList.add("elements__like-pressed");
-        }
-
         if (!this._isDeletable) {
             this._deleteElement.style.display = 'none';
         }
@@ -67,7 +61,6 @@ export class Card {
 
         this._likeElement.addEventListener('click', () => {
            this._handleLikeClick(this._isLiked);
-           this._updateLikes();
         });
 
         this._deleteElement.addEventListener('click', (evt) => {

@@ -5,6 +5,8 @@ import { PopupWithConfirmation } from "../components/PopupWithConfirmation.js";
 import { Api } from "../components/Api.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
+import { FormValidator } from "../components/FormValidator.js";
+import { validatorConfig } from "../utils/constants.js";
 
 import "./index.css";
 
@@ -13,9 +15,28 @@ const addButton = document.querySelector(".profile__add-button");
 const editAvatar = document.querySelector(".profile__avatar-edit");
 
 const popupPhoto = new PopupWithImage(".popup_photo");
-const popupAddCard = new PopupWithForm(".popup_add", addCardHandler);
-const popupEditProfile = new PopupWithForm(".popup_edit", userEditHandler);
-const popupEditAvatar = new PopupWithForm(".popup_avatar", avatarEditHandler);
+
+const addCardValidator = new FormValidator(validatorConfig, ".popup_add");
+const popupAddCard = new PopupWithForm(
+  ".popup_add",
+  addCardValidator,
+  addCardHandler
+);
+
+const editProfileValidator = new FormValidator(validatorConfig, ".popup_edit");
+const popupEditProfile = new PopupWithForm(
+  ".popup_edit",
+  editProfileValidator,
+  userEditHandler
+);
+
+const editAvatarValidator = new FormValidator(validatorConfig, ".popup_avatar");
+const popupEditAvatar = new PopupWithForm(
+  ".popup_avatar",
+  editAvatarValidator,
+  avatarEditHandler
+);
+
 const popupConfirm = new PopupWithConfirmation(".popup_confirm");
 
 const api = new Api({
@@ -38,58 +59,21 @@ const profileElems = {
 
 let cardList;
 
-function cardsGeneration(user) {
-  api
-    .getInitialCards()
-
-    .then((result) => {
-      cardList = new Section(
-        {
-          data: result,
-          renderer: (item) => {
-            const card = new Card(
-              item.name,
-              item.link,
-              item.likes.length,
-              item.likes.some((like) => like._id === user._id),
-              item.owner._id === user._id,
-              elementsTemplate,
-              (data) => popupPhoto.open(data),
-              () => {
-                popupConfirm.open(() => {
-                  api.deleteCard(item._id);
-                  card.remove();
-                });
-              },
-              (isLiked) => {
-                if (isLiked) {
-                  api.deleteLike(item._id);
-                } else {
-                  api.addLike(item._id);
-                }
-              }
-            );
-            const elementsItem = card.createCard();
-            cardList.appendItem(elementsItem);
-          },
+Promise.all([api.getUser(), api.getInitialCards()])
+  .then(([userData, cardsData]) => {
+    userInfo.setUserInfo(userData);
+    cardList = new Section(
+      {
+        data: cardsData,
+        renderer: (item) => {
+          const cardElement = createCard(item);
+          cardList.appendItem(cardElement);
         },
-        ".elements__items"
-      );
+      },
+      ".elements__items"
+    );
 
-      cardList.renderItems();
-    })
-    .catch((err) => {
-      console.log(err); // выведем ошибку в консоль
-    });
-}
-
-//взяли имя и описание с сервера
-api
-  .getUser()
-  .then((result) => {
-    // result._id
-    userInfo.setUserInfo(result);
-    cardsGeneration(result);
+    cardList.renderItems();
   })
   .catch((err) => {
     console.log(err); // выведем ошибку в консоль
@@ -101,35 +85,13 @@ function addCardHandler(data) {
   api
     .addCard(data)
     .then((result) => {
-      const card = new Card(
-        result.name,
-        result.link,
-        result.likes.length,
-        result.likes.some((like) => like._id === userInfo.getId()),
-        result.owner._id === userInfo.getId(),
-        elementsTemplate,
-        (data) => popupPhoto.open(data),
-        () => {
-          popupConfirm.open(() => {
-            api.deleteCard(result._id);
-            card.remove();
-          });
-        },
-        (isLiked) => {
-          if (isLiked) {
-            api.deleteLike(result._id);
-          } else {
-            api.addLike(result._id);
-          }
-        }
-      );
-      const elementsItem = card.createCard();
-      cardList.prependItem(elementsItem);
+      const cardElement = createCard(result);
+      cardList.prependItem(cardElement);
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
     })
-    .then(() => {
+    .finally(() => {
       popupAddCard.renderLoading(false);
       popupAddCard.close();
     });
@@ -142,13 +104,17 @@ addButton.addEventListener("click", () => {
 
 //добавляем новое имя и должность в заголовок
 function userEditHandler(data) {
-  userInfo.setUserInfo(data);
   popupEditProfile.renderLoading(true);
 
   api
     .editName(data)
-
     .then(() => {
+      userInfo.setUserInfo(data);
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    })
+    .finally(() => {
       popupEditProfile.renderLoading(false);
       popupEditProfile.close();
     });
@@ -170,8 +136,69 @@ editAvatar.addEventListener("click", () => {
 function avatarEditHandler(data) {
   userInfo.setUserInfo(data);
   popupEditAvatar.renderLoading(true);
-  api.editAvatar(data).then(() => {
-    popupEditAvatar.renderLoading(false);
-    popupEditAvatar.close();
-  });
+  api
+    .editAvatar(data)
+    .then(() => {
+      popupEditAvatar.renderLoading(false);
+      popupEditAvatar.close();
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+    });
+}
+
+function updateCardLikes(card, data) {
+  card.updateLikes(
+    data.likes.some((like) => like._id === userInfo.getId()),
+    data.likes.length
+  );
+}
+
+function createCard(item) {
+  const card = new Card(
+    item.name,
+    item.link,
+    item.owner._id === userInfo.getId(),
+    elementsTemplate,
+    (data) => popupPhoto.open(data),
+    () => {
+      popupConfirm.open(() => {
+        api
+          .deleteCard(item._id)
+
+          .then(() => {
+            card.remove();
+            popupConfirm.close();
+          })
+          .catch((err) => {
+            console.log(err); // выведем ошибку в консоль
+          });
+      });
+    },
+    (isLiked) => {
+      if (isLiked) {
+        api
+          .deleteLike(item._id)
+          .then((data) => {
+            updateCardLikes(card, data);
+          })
+          .catch((err) => {
+            console.log(err); // выведем ошибку в консоль
+          });
+      } else {
+        api
+          .addLike(item._id)
+          .then((data) => {
+            updateCardLikes(card, data);
+          })
+          .catch((err) => {
+            console.log(err); // выведем ошибку в консоль
+          });
+      }
+    }
+  );
+
+  const domCardElement = card.createCard();
+  updateCardLikes(card, item);
+  return domCardElement;
 }
