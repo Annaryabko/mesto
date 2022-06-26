@@ -87,14 +87,12 @@ function addCardHandler(data) {
     .then((result) => {
       const cardElement = createCard(result);
       cardList.prependItem(cardElement);
+      popupAddCard.renderLoading(false);
+      popupAddCard.close();
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
     })
-    .finally(() => {
-      popupAddCard.renderLoading(false);
-      popupAddCard.close();
-    });
 }
 
 //открытие добавить карточку
@@ -110,14 +108,12 @@ function userEditHandler(data) {
     .editName(data)
     .then(() => {
       userInfo.setUserInfo(data);
+      popupEditProfile.renderLoading(false);
+      popupEditProfile.close();
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
     })
-    .finally(() => {
-      popupEditProfile.renderLoading(false);
-      popupEditProfile.close();
-    });
 }
 
 //инфо о пользователе
